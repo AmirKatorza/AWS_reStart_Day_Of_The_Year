@@ -2,40 +2,6 @@
 
 source aux_functions.sh
 
-function chk_year() {
-    local input_year=$1
-    local re_year='^[1-9]{4}$'
-    if [[ $input_year =~ $re_year ]]; 
-    then
-        echo "1"
-    else
-        echo "0"
-    fi
-}
-
-function chk_month() {
-    local input_month=$1
-    # local re_month='^[1-9]{2}$'
-    if [[ $input_month =~ '^[1-9]{1}$' || $input_month =~ '^[1-9]{2}$' && $input_month -ge 1 && $input_month -le 12 ]];
-    then
-        echo "1"
-    else
-        echo "0"
-    fi
-}
-
-function chk_day() {
-    local input_day=$3
-    # local re_day='^[1-9]{2}$'
-    local number_of_days_in_month=$(days_in_month $1 $2)
-    if [[ $input_day =~ '^[1-9]{1}$' || $input_day =~ '^[1-9]{2}$' && $input_day -ge 1 && $input_day -le $number_of_days_in_month ]];
-    then    
-        echo "1"
-    else
-        echo "0"
-    fi
-}
-
 option=999
 
 while [ "$option" -ne "0" ];
