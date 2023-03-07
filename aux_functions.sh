@@ -1,8 +1,8 @@
 #!/bin/bash
 
 function leap_year() {
-    local in_year=$1
-    if (( $in_year % 4 == 0 && $in_year % 100 != 0 )) || (( $in_year % 400 == 0 )); 
+    local chk_leap_year=$1
+    if (( $chk_leap_year % 4 == 0 && $chk_leap_year % 100 != 0 )) || (( $chk_leap_year % 400 == 0 )); 
     then
         echo "1" # True
     else
@@ -20,12 +20,12 @@ function leap_year() {
 function days_in_month() {
    local in_year=$1
    local in_month=$2     
-   case $month in
-    1|3|5|7|8|10|12)
+   case $in_month in
+    1|3|5|7|8|10|12 )
             echo "31" ;;
-    4|6|9|11)
+    4|6|9|11 )
             echo "30" ;;
-        2)
+    2 )
         is_leap=$(leap_year $in_year)
         if [[ $is_leap  -eq 1 ]] 
         then
@@ -58,7 +58,7 @@ function day_of_year() {
 
 function chk_year() {
     local input_year=$1
-    local re_year='^[1-9]{4}$'
+    local re_year='^[1-9]{1}[0-9]{3}$'
     if [[ $input_year =~ $re_year ]]; 
     then
         echo "1"
@@ -69,8 +69,9 @@ function chk_year() {
 
 function chk_month() {
     local input_month=$1
-    # local re_month='^[1-9]{2}$'
-    if [[ $input_month =~ '^[1-9]{1}$' || $input_month =~ '^[1-9]{2}$' && $input_month -ge 1 && $input_month -le 12 ]];
+    local re_month1='^[1-9]$'
+    local re_month2='^1[0-2]$'
+    if [[ $input_month =~ $re_month1 || $input_month =~ $re_month2 ]];
     then
         echo "1"
     else
@@ -80,9 +81,10 @@ function chk_month() {
 
 function chk_day() {
     local input_day=$3
-    # local re_day='^[1-9]{2}$'
+    local re_day1='^[1-9]$'
+    local re_day2='^[1-3][0-9]$'
     local number_of_days_in_month=$(days_in_month $1 $2)
-    if [[ $input_day =~ '^[1-9]{1}$' || $input_day =~ '^[1-9]{2}$' && $input_day -ge 1 && $input_day -le $number_of_days_in_month ]];
+    if [[ $input_day =~ $re_day1 || $input_day =~ $re_day2 ]] && [[ $input_day -le $number_of_days_in_month ]];
     then    
         echo "1"
     else

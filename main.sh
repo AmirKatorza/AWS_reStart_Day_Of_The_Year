@@ -10,8 +10,7 @@ do
         read option     
         if [ $option -eq 1 ];
         then
-                echo "Please enter a date (YYYY) (MM) (DD)"
-                read year month day
+                read -p "Please enter a date (YYYY) (MM) (DD): " year month day
                 year_valid=$(chk_year $year)
                 month_valid=$(chk_month $month)
                 if [[ $year_valid -eq 1 && $month_valid -eq 1 ]];
@@ -22,15 +21,14 @@ do
                         day_in_year=$(day_of_year $year $month $day)
                         echo "Result: $day_in_year"
                     else
-                        echo "No a valid input please try again!"
+                        echo "Not a valid input please try again!"
                     fi
                 else
                     echo "No a valid input please try again!"
                 fi
         elif [ $option -eq 2 ];
         then
-                echo "Please enter year and month (YYYY) (MM)"
-                read year month
+                read -p "Please enter year (YYYY) (MM): " year month
                 year_valid=$(chk_year $year)
                 month_valid=$(chk_month $month)
                 if [[ $year_valid -eq 1 && $month_valid -eq 1 ]];
@@ -38,17 +36,16 @@ do
                     num_days_in_month=$(days_in_month $year $month)
                     echo "Result: $num_days_in_month"
                 else
-                    echo "No a valid input please try again!"
+                    echo "Not a valid input please try again!"
                 fi
-                #continue
+                
         elif [ $option -eq 3 ];
         then
-                echo "Please enter year (YYYY)"
-                read year
+                read -p "Please enter year (YYYY): " year
                 year_valid=$(chk_year $year)
                 if [[ $year_valid -eq 1 ]];
                 then
-                    is_leap_year=$(is_leap $year)
+                    is_leap_year=$(leap_year $year)
                     if [ $is_leap_year -eq 1 ]
                     then
                         echo "Year: $year is leap year"
@@ -56,7 +53,7 @@ do
                         echo "Year: $year is regular year"
                     fi
                 else
-                    echo "No a valid input please try again!"
+                    echo "Not a valid input please try again!"
                 fi
         elif [ $option -eq 0 ];
         then
